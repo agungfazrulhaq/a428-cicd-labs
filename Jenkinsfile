@@ -1,21 +1,10 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:16-buster-slim' 
-            args '-p 3000:3000 --network=host' 
-        }
-    }
-    stages {
-        stage('Build') { 
-            steps {
-                sh 'npm install'
-            }
+node{
+    docker.image('node:16-uster-slim').withRun('-p 3000:3000 --network=host') {
+        stage('Build') {
+            sh 'npm install'
         }
         stage('Test') {
-            steps {
-                sh './jenkins/scripts/test.sh'
-            }
+            sh './jenkins/scripts/test.sh'
         }
     }
-    
 }
